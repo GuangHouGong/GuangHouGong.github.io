@@ -123,15 +123,13 @@ a {
 
 .hero {
   position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 1.02fr) minmax(22rem, 0.78fr);
-  gap: clamp(2rem, 5vw, 5.5rem);
+  display: flex;
   align-items: center;
-  min-height: calc(100vh - 82px);
-  padding: clamp(3rem, 6vw, 6rem) clamp(1rem, 6vw, 6.5rem) clamp(4rem, 8vw, 7rem);
+  min-height: clamp(34rem, 78svh, 46rem);
+  padding: clamp(3rem, 6vw, 5.6rem) clamp(1rem, 6vw, 6.5rem) clamp(4rem, 8vw, 6rem);
   background:
-    linear-gradient(135deg, rgba(100, 20, 15, 0.94), rgba(159, 36, 26, 0.86) 48%, rgba(90, 37, 22, 0.94)),
-    radial-gradient(circle at center, rgba(244, 213, 130, 0.3), transparent 42rem);
+    radial-gradient(circle at 78% 54%, rgba(244, 213, 130, 0.26), transparent 22rem),
+    linear-gradient(135deg, rgba(88, 18, 13, 0.96), rgba(152, 33, 25, 0.9) 48%, rgba(61, 31, 18, 0.96));
   color: #fff9e7;
 }
 
@@ -150,8 +148,8 @@ a {
 .hero::after {
   right: clamp(1rem, 4vw, 5rem);
   bottom: -3rem;
-  width: min(42vw, 34rem);
-  height: min(42vw, 34rem);
+  width: min(46vw, 36rem);
+  height: min(46vw, 36rem);
   border: 1px solid rgba(244, 213, 130, 0.16);
   border-radius: 999px;
   background:
@@ -160,9 +158,14 @@ a {
 }
 
 .hero-content,
-.hero-visual {
+.temple-visual {
   position: relative;
   z-index: 1;
+}
+
+.hero-content {
+  max-width: 48rem;
+  z-index: 2;
 }
 
 .eyebrow,
@@ -188,6 +191,14 @@ a {
   color: #ffe8a9;
   font-size: clamp(1.25rem, 2.6vw, 2rem);
   font-weight: 800;
+}
+
+.hero-copy {
+  max-width: 42rem;
+  margin: 1.2rem 0 0;
+  color: rgba(255, 249, 231, 0.9);
+  font-size: clamp(1.02rem, 1.7vw, 1.18rem);
+  line-height: 1.9;
 }
 
 .hero-actions {
@@ -230,119 +241,137 @@ a {
   color: #fff8e3;
 }
 
-.hero-visual {
-  display: grid;
-  place-items: center;
-  min-height: 25rem;
-}
-
-.halo {
+.temple-visual {
   position: absolute;
-  width: min(92vw, 34rem);
+  right: clamp(-4rem, 3vw, 4rem);
+  bottom: clamp(1rem, 4vw, 3.5rem);
+  display: grid;
+  place-items: end center;
+  width: min(44vw, 34rem);
+  min-width: 24rem;
   aspect-ratio: 1;
-  border-radius: 999px;
-  background:
-    radial-gradient(circle, rgba(255, 239, 180, 0.56) 0 10%, transparent 42%),
-    conic-gradient(from 0deg, transparent, rgba(255, 224, 133, 0.42), transparent 28%);
-  filter: blur(0.5px);
+  opacity: 0.95;
+  pointer-events: none;
+  z-index: 1;
 }
 
-.fortune-wheel {
-  position: relative;
-  display: grid;
-  place-items: center;
-  width: min(82vw, 24rem);
+.temple-visual::before {
+  position: absolute;
+  inset: 5% 3% auto auto;
+  width: 66%;
   aspect-ratio: 1;
-  border: 10px solid #f6d986;
   border-radius: 999px;
   background:
-    radial-gradient(circle, #fff3bf 0 13%, transparent 13.5%),
-    conic-gradient(
-      from -30deg,
-      #a32017 0 60deg,
-      #f4c959 60deg 120deg,
-      #7f1a13 120deg 180deg,
-      #efb846 180deg 240deg,
-      #b72b20 240deg 300deg,
-      #f6d986 300deg 360deg
-    );
+    radial-gradient(circle, rgba(255, 238, 174, 0.72) 0 16%, transparent 58%),
+    conic-gradient(from 20deg, transparent, rgba(249, 210, 102, 0.26), transparent 34%);
+  content: '';
+  filter: blur(0.2px);
+}
+
+.tree-canopy {
+  position: absolute;
+  top: 5%;
+  left: 9%;
+  width: 43%;
+  height: 34%;
+  border: 1px solid rgba(244, 213, 130, 0.18);
+  border-radius: 52% 48% 48% 52%;
+  background:
+    radial-gradient(circle at 28% 44%, rgba(244, 213, 130, 0.26) 0 16%, transparent 17%),
+    radial-gradient(circle at 58% 28%, rgba(255, 240, 176, 0.18) 0 18%, transparent 19%),
+    linear-gradient(135deg, rgba(54, 89, 50, 0.78), rgba(42, 68, 43, 0.54));
+  box-shadow: 0 18px 55px rgba(24, 10, 4, 0.24);
+}
+
+.tree-canopy::after {
+  position: absolute;
+  right: 16%;
+  bottom: -38%;
+  width: 0.85rem;
+  height: 45%;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #735032, #3a2117);
+  content: '';
+}
+
+.temple-roof {
+  position: absolute;
+  right: 9%;
+  bottom: 42%;
+  width: 78%;
+  height: 18%;
+  border-bottom: 0.42rem solid #f3cf71;
+  border-radius: 0 0 8px 8px;
+  background:
+    linear-gradient(155deg, transparent 0 9%, #f6dc8c 9% 13%, transparent 13% 20%, #f6dc8c 20% 24%, transparent 24%),
+    linear-gradient(180deg, #b5241c 0%, #7e1712 72%);
+  clip-path: polygon(7% 72%, 20% 28%, 50% 0, 80% 28%, 93% 72%, 86% 100%, 14% 100%);
+  box-shadow: 0 20px 45px rgba(25, 8, 3, 0.28);
+}
+
+.temple-hall {
+  position: absolute;
+  right: 17%;
+  bottom: 18%;
+  display: grid;
+  place-items: center;
+  width: 62%;
+  height: 30%;
+  border: 3px solid rgba(246, 217, 134, 0.74);
+  border-radius: 6px;
+  background:
+    linear-gradient(90deg, rgba(246, 217, 134, 0.42) 0 7%, transparent 7% 18%, rgba(246, 217, 134, 0.28) 18% 25%, transparent 25% 75%, rgba(246, 217, 134, 0.28) 75% 82%, transparent 82% 93%, rgba(246, 217, 134, 0.42) 93%),
+    linear-gradient(180deg, rgba(255, 250, 226, 0.94), rgba(244, 213, 130, 0.74));
   box-shadow:
-    inset 0 0 0 8px rgba(105, 30, 14, 0.32),
-    0 22px 70px rgba(34, 11, 5, 0.36);
+    inset 0 0 0 0.35rem rgba(141, 35, 20, 0.14),
+    0 20px 50px rgba(24, 7, 2, 0.22);
 }
 
-.fortune-wheel::before {
+.temple-plaque {
   position: absolute;
-  inset: 12%;
-  border: 2px solid rgba(255, 249, 226, 0.7);
-  border-radius: inherit;
-  content: '';
+  top: 12%;
+  padding: 0.42rem 0.65rem;
+  border: 1px solid rgba(246, 217, 134, 0.72);
+  border-radius: 6px;
+  background: #4b2415;
+  color: #ffe8a9;
+  font-size: clamp(0.82rem, 1.4vw, 1rem);
+  font-weight: 900;
 }
 
-.fortune-wheel::after {
-  position: absolute;
-  top: -1.4rem;
-  width: 0;
-  height: 0;
-  border-right: 1rem solid transparent;
-  border-bottom: 2rem solid #fff2b7;
-  border-left: 1rem solid transparent;
-  content: '';
+.deity-seals {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 2rem;
 }
 
-.fortune-wheel span {
-  position: absolute;
+.deity-seals span {
   display: grid;
   place-items: center;
-  width: 3.7rem;
-  height: 3.7rem;
-  border: 2px solid rgba(106, 24, 13, 0.28);
+  width: clamp(3.1rem, 5.6vw, 4.2rem);
+  aspect-ratio: 1;
+  border: 3px double #f1ce73;
   border-radius: 999px;
-  background: rgba(255, 250, 227, 0.9);
-  color: #7d1c13;
-  font-size: 1.65rem;
+  background: #921c15;
+  color: #ffe8a9;
+  font-size: clamp(1.55rem, 3.1vw, 2.2rem);
   font-weight: 900;
 }
 
-.fortune-wheel span:nth-child(1) {
-  transform: translateY(-8rem);
-}
-
-.fortune-wheel span:nth-child(2) {
-  transform: rotate(60deg) translateY(-8rem) rotate(-60deg);
-}
-
-.fortune-wheel span:nth-child(3) {
-  transform: rotate(120deg) translateY(-8rem) rotate(-120deg);
-}
-
-.fortune-wheel span:nth-child(4) {
-  transform: translateY(8rem);
-}
-
-.fortune-wheel span:nth-child(5) {
-  transform: rotate(240deg) translateY(-8rem) rotate(-240deg);
-}
-
-.fortune-wheel span:nth-child(6) {
-  transform: rotate(300deg) translateY(-8rem) rotate(-300deg);
-}
-
-.gold-ingot {
+.temple-base {
   position: absolute;
-  bottom: 0.4rem;
+  right: 11%;
+  bottom: 10%;
   display: grid;
   place-items: center;
-  width: min(64vw, 18rem);
-  height: 5.2rem;
-  border: 3px solid rgba(104, 47, 8, 0.28);
-  border-radius: 50% 50% 22% 22% / 64% 64% 36% 36%;
-  background:
-    radial-gradient(ellipse at 50% 18%, #fff5bc 0 26%, transparent 27%),
-    linear-gradient(180deg, #ffe48e, #d29326 58%, #9a5b13);
-  box-shadow: 0 16px 34px rgba(40, 10, 2, 0.26);
-  color: #5a240b;
+  width: 74%;
+  min-height: 3rem;
+  border: 1px solid rgba(246, 217, 134, 0.55);
+  border-radius: 8px;
+  background: rgba(50, 25, 15, 0.62);
+  color: #ffe8a9;
   font-weight: 900;
+  letter-spacing: 0;
 }
 
 .section {
@@ -386,6 +415,47 @@ a {
   gap: 0.8rem;
   max-width: 56rem;
   margin-bottom: 2rem;
+}
+
+.story-section {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.85fr);
+  gap: clamp(1.5rem, 5vw, 4rem);
+  align-items: center;
+  background:
+    radial-gradient(circle at 88% 18%, rgba(61, 89, 49, 0.14), transparent 20rem),
+    linear-gradient(180deg, #fffaf0, #f8edd6);
+}
+
+.story-section .section-heading {
+  margin-bottom: 0;
+}
+
+.story-facts {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.story-facts div {
+  display: grid;
+  gap: 0.3rem;
+  padding: 1.1rem;
+  border: 1px solid rgba(159, 36, 26, 0.18);
+  border-radius: 8px;
+  background: rgba(255, 253, 246, 0.76);
+  box-shadow: 0 16px 36px rgba(83, 35, 14, 0.08);
+}
+
+.story-facts strong {
+  color: var(--red-deep);
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1;
+}
+
+.story-facts span {
+  color: var(--ink-soft);
+  font-weight: 800;
+  line-height: 1.55;
 }
 
 .deity-grid {
@@ -507,6 +577,35 @@ a {
   max-width: 52rem;
 }
 
+.source-section {
+  background: #fffaf0;
+}
+
+.source-list {
+  display: grid;
+  gap: 0.75rem;
+  max-width: 58rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.source-list a {
+  display: block;
+  padding: 0.95rem 1rem;
+  border: 1px solid rgba(159, 36, 26, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 253, 246, 0.74);
+  color: var(--red-deep);
+  font-weight: 800;
+}
+
+.source-list a:hover,
+.source-list a:focus-visible {
+  border-color: rgba(159, 36, 26, 0.34);
+  background: #fffdf6;
+}
+
 .site-footer {
   display: flex;
   flex-wrap: wrap;
@@ -524,7 +623,7 @@ a {
   font-weight: 800;
 }
 
-@media (max-width: 920px) {
+@media (max-width: 1040px) {
   .site-header {
     align-items: flex-start;
     flex-direction: column;
@@ -535,15 +634,20 @@ a {
   }
 
   .hero {
-    grid-template-columns: 1fr;
     min-height: auto;
   }
 
-  .hero-visual {
-    min-height: 23rem;
+  .temple-visual {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    width: min(100%, 31rem);
+    min-width: 0;
+    margin: 2.2rem auto 0;
   }
 
   .intro-grid,
+  .story-section,
   .deity-grid {
     grid-template-columns: 1fr;
   }
@@ -591,47 +695,9 @@ a {
     width: 100%;
   }
 
-  .hero-visual {
-    min-height: 20rem;
-  }
-
-  .fortune-wheel {
-    width: min(78vw, 18.5rem);
-    border-width: 8px;
-  }
-
-  .fortune-wheel span {
-    width: 3rem;
-    height: 3rem;
-    font-size: 1.35rem;
-  }
-
-  .fortune-wheel span:nth-child(1) {
-    transform: translateY(-6.2rem);
-  }
-
-  .fortune-wheel span:nth-child(2) {
-    transform: rotate(60deg) translateY(-6.2rem) rotate(-60deg);
-  }
-
-  .fortune-wheel span:nth-child(3) {
-    transform: rotate(120deg) translateY(-6.2rem) rotate(-120deg);
-  }
-
-  .fortune-wheel span:nth-child(4) {
-    transform: translateY(6.2rem);
-  }
-
-  .fortune-wheel span:nth-child(5) {
-    transform: rotate(240deg) translateY(-6.2rem) rotate(-240deg);
-  }
-
-  .fortune-wheel span:nth-child(6) {
-    transform: rotate(300deg) translateY(-6.2rem) rotate(-300deg);
-  }
-
-  .gold-ingot {
-    height: 4.5rem;
+  .temple-visual {
+    width: min(92vw, 24rem);
+    margin-top: 1.5rem;
   }
 
   .service-list {

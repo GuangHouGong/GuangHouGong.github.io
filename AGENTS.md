@@ -5,7 +5,8 @@
 - This repository is the GitHub Pages organization root site for `GuangHouGong.github.io`.
 - Production URL: `https://guanghougong.github.io/`.
 - Public project name: `土城廣厚宮福德正神・玄壇財神官方網站`.
-- The site links to the lottery wheel app at `/fortune-draw-wheel/`.
+- The site's primary job is to introduce 土城廣厚宮, its main deities, local faith story, announcements, and contact path.
+- The lottery wheel app at `/fortune-draw-wheel/` is a secondary digital activity tool, not the homepage focus.
 
 ## Stack And Commands
 
@@ -24,7 +25,8 @@
 - Default site copy and documentation language is Traditional Chinese.
 - Do not scrape Facebook or invent temple facts unless the user explicitly asks for research.
 - Keep the provided Facebook URL as the canonical contact link unless the user gives an updated official link.
-- Preserve the official homepage CTA to `/fortune-draw-wheel/`.
+- Keep the homepage hero and primary CTA focused on understanding or contacting 土城廣厚宮, not the lottery wheel.
+- Keep the lottery wheel link in a lower-priority digital activity tool or related project section.
 - Keep the open-source project section linked to:
   - `https://github.com/GuangHouGong/fortune-draw-wheel`
   - `https://guanghougong.github.io/fortune-draw-wheel/`
