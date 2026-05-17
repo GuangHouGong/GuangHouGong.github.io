@@ -1,0 +1,25 @@
+{
+  "name": "土城廣厚宮福德正神・玄壇財神",
+  "short_name": "土城廣厚宮",
+  "description": "土城廣厚宮福德正神・玄壇財神官方網站，提供祈福、求財、平安、宮廟活動與開源抽獎輪盤工具。",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#fff8ea",
+  "theme_color": "#8f1d16",
+  "lang": "zh-Hant-TW",
+  "icons": [
+    {
+      "src": "/assets/favicon.svg",
+      "sizes": "64x64",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/logo.svg",
+      "sizes": "180x180",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
