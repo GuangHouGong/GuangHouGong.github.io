@@ -34,6 +34,14 @@ npm run preview
 
 GitHub repository 的 Pages 設定需選擇 GitHub Actions 作為部署來源。
 
+## 專案維護規則
+
+- Codex 與其他 coding agents 的 repo 指引請看 [AGENTS.md](./AGENTS.md)。
+- 修改網站內容、部署方式、SEO 設定或相關專案連結時，請同步更新 `README.md` 與必要的 public metadata。
+- 修改程式、素材、設定或 metadata 後，至少執行 `npm run lint` 與 `npm run build`。
+- 修改可視 UI 後，建議執行 `npm run dev` 並用瀏覽器檢查首頁顯示。
+- 本專案使用 Conventional Commits。
+
 ## SEO 說明
 
 本專案已設定：
