@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
-  <title id="title">土城廣厚宮福德正神・玄壇財神</title>
-  <desc id="desc">土城廣厚宮福德正神玄壇財神官方網站社群分享圖。</desc>
+  <title id="title">土城廣厚宮福德正神・玄壇財神官方網站</title>
+  <desc id="desc">土城廣厚宮福德正神玄壇財神官方網站社群分享圖，呈現老樟樹、福德正神與玄壇財神信仰。</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#64140f" />
@@ -12,13 +12,9 @@
       <stop offset="0.48" stop-color="#d8a239" />
       <stop offset="1" stop-color="#9b5c13" />
     </linearGradient>
-    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
-      <stop offset="0" stop-color="#fff1ad" stop-opacity="0.58" />
-      <stop offset="1" stop-color="#fff1ad" stop-opacity="0" />
-    </radialGradient>
   </defs>
   <rect width="1200" height="630" fill="url(#bg)" />
-  <circle cx="930" cy="315" r="270" fill="url(#glow)" />
+  <path d="M690 92v496M762 92v496M834 92v496M906 92v496M978 92v496M1050 92v496" stroke="#f2cf76" stroke-width="2" opacity="0.12" />
   <rect x="42" y="42" width="1116" height="546" fill="none" stroke="#f2cf76" stroke-width="4" opacity="0.62" />
   <path d="M770 150h250l-24-38H794l-24 38Z" fill="url(#gold)" opacity="0.96" />
   <path d="M795 156h200v143H795z" fill="#fff7df" opacity="0.95" />
@@ -29,8 +25,8 @@
   <path d="M765 345c20-58 250-58 270 0 26 7 43 26 43 48 0 37-48 65-107 65H829c-59 0-107-28-107-65 0-22 17-41 43-48Z" fill="url(#gold)" />
   <path d="M826 344c14-22 135-22 149 0-18 13-131 13-149 0Z" fill="#fff1ad" opacity="0.82" />
   <text x="900" y="420" text-anchor="middle" font-family="'Noto Serif TC', 'PingFang TC', serif" font-size="42" font-weight="900" fill="#5f240b">廣厚宮</text>
-  <text x="104" y="168" font-family="'Noto Serif TC', 'PingFang TC', serif" font-size="48" font-weight="800" fill="#f5d47d">土城廣厚宮</text>
+  <text x="104" y="168" font-family="'Noto Serif TC', 'PingFang TC', serif" font-size="48" font-weight="800" fill="#f5d47d">土城廣厚宮官方網站</text>
   <text x="104" y="278" font-family="'Noto Serif TC', 'PingFang TC', serif" font-size="72" font-weight="900" fill="#fff7df">福德正神・玄壇財神</text>
-  <text x="104" y="368" font-family="'Noto Serif TC', 'PingFang TC', serif" font-size="42" font-weight="800" fill="#ffe8a6">祈福納財・平安順遂・財源廣進</text>
+  <text x="104" y="368" font-family="'Noto Serif TC', 'PingFang TC', serif" font-size="42" font-weight="800" fill="#ffe8a6">老樟樹記憶・福德庇佑・迎祥納財</text>
   <text x="104" y="494" font-family="'Noto Sans TC', 'PingFang TC', sans-serif" font-size="30" font-weight="700" fill="#fff7df" opacity="0.92">guanghougong.github.io</text>
 </svg>
