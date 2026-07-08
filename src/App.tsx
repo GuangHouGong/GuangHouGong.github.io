@@ -5,6 +5,7 @@ const navItems = [
   { label: '廟宇故事', href: '#story' },
   { label: '主祀信仰', href: '#deities' },
   { label: '參拜資訊', href: '#visit' },
+  { label: '常見問題', href: '#faq' },
   { label: '公告聯絡', href: '#contact' },
   { label: '資料來源', href: '#sources' },
 ];
@@ -94,6 +95,46 @@ const visitItems = [
   {
     title: '聯絡詢問',
     description: '若需詢問參拜、祈福服務或活動協助，建議由官方 Facebook 取得最新回覆。',
+  },
+];
+
+const noticeItems = [
+  {
+    label: '最新公告',
+    title: '以官方 Facebook 發布為準',
+    description: '活動、祭典、服務異動與臨時通知，統一導向官方 Facebook 查詢。',
+  },
+  {
+    label: '資料更新',
+    title: '本頁資料更新至 2026-07-08',
+    description: '目前已整理老樟樹報導、功德會法人公告、主祀信仰背景與官方聯絡入口。',
+  },
+  {
+    label: '待補資訊',
+    title: '地址、電話、開放時間待官方確認',
+    description: '未有可靠官方文字來源前，不在首頁寫死，避免信眾依錯誤資訊前往或聯絡。',
+  },
+];
+
+const faqItems = [
+  {
+    question: '最新活動與公告要去哪裡看？',
+    answer: '請以土城廣厚宮官方 Facebook 頁面為準。本網站保留官方連結，避免重複轉載後產生版本落差。',
+  },
+  {
+    question: '為什麼目前沒有列地址、電話或開放時間？',
+    answer:
+      '目前公開搜尋沒有找到足以確認的官方文字來源；為避免誤導信眾，這些資訊會等廟方提供或正式公告後再補上。',
+  },
+  {
+    question: '福德正神與玄壇財神介紹是廟史嗎？',
+    answer:
+      '不是。神明介紹屬於民間信仰背景整理；廣厚宮專屬廟史只採可查來源與官方資訊，兩者在頁面上分開呈現。',
+  },
+  {
+    question: '抽獎輪盤 App 是首頁主功能嗎？',
+    answer:
+      '不是。抽獎輪盤是活動輔助工具，首頁主軸仍是土城廣厚宮介紹、在地故事、主祀信仰與公告聯絡。',
   },
 ];
 
@@ -197,6 +238,23 @@ function App() {
         ))}
       </section>
 
+      <section className="section notice-section" aria-labelledby="notice-title">
+        <div className="section-heading">
+          <p className="section-kicker">公告與資料狀態</p>
+          <h2 id="notice-title">先確認來源，再補上首頁資訊</h2>
+          <p>第二輪整理後，仍未找到可直接確認地址、電話與開放時間的官方公開文字；目前採保守呈現，讓信眾知道下一步該看哪裡。</p>
+        </div>
+        <div className="notice-grid">
+          {noticeItems.map((item) => (
+            <article key={item.label}>
+              <span>{item.label}</span>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section className="section story-section" id="story" aria-labelledby="story-title">
         <div className="section-heading">
           <p className="section-kicker">廟宇故事</p>
@@ -265,6 +323,22 @@ function App() {
             <article key={item.title}>
               <h3>{item.title}</h3>
               <p>{item.description}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="section faq-section" id="faq" aria-labelledby="faq-title">
+        <div className="section-heading">
+          <p className="section-kicker">常見問題</p>
+          <h2 id="faq-title">先回答信眾最容易疑惑的事</h2>
+          <p>FAQ 用於說明資料邊界、官方公告入口與抽獎輪盤定位，降低首頁資訊不足造成的誤解。</p>
+        </div>
+        <div className="faq-list">
+          {faqItems.map((item) => (
+            <article key={item.question}>
+              <h3>{item.question}</h3>
+              <p>{item.answer}</p>
             </article>
           ))}
         </div>
