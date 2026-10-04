@@ -1,0 +1,20 @@
+{
+  "generator": "ChatGPT built-in image_gen",
+  "generatedAt": "2026-10-05",
+  "assets": [
+    {
+      "file": "temple-faith-hero.webp",
+      "usage": "官方首頁的老樟樹與福德信仰意象插畫",
+      "width": 1024,
+      "height": 1024,
+      "transparent": true,
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "postprocessing": "ImageMagick resize and WebP compression only; alpha preserved.",
+      "note": "裝飾性信仰意象，不是廣厚宮實景、建築紀錄或廟方史料；所有名稱與文字由 HTML 顯示。",
+      "prompt": "Use case: stylized-concept. Asset type: a production transparent illustration for the official 土城廣厚宮 Taiwan temple website, shown in the right-hand half of a burgundy-red homepage hero. Primary request: create an elegant, welcoming symbolic Taiwanese local faith vignette, not a depiction of any real temple. Subject: one graceful miniature traditional Taiwanese shrine with a deep lacquer-red gently curved tiled roof, warm gold details, cream stone base and a softly glowing empty doorway, beside one mature broad-canopy camphor tree with textured trunk and rich restrained green leaves. A modest smooth golden sycee ingot in the foreground represents fortune. Style: premium sculpted ceramic and hand-painted miniature relief, sophisticated warm 3D illustration, ceremonial and quiet, suitable for an official temple website and older visitors. Composition: a single coherent scene in a square canvas, shrine occupies lower center-right, tree grows on the left and arches above, every branch and roof edge fully inside with 8 percent transparent padding; clear silhouette, no detached ornament, compact small base only. Lighting: soft warm studio illumination and tactile satin materials, fine crafted detail without busy noise. Palette: temple red #8F111C, deep red #5C0B11, warm aged gold #D9A441, ivory #FFF9E9, dark brown #36190F, muted leaf green. Genuinely transparent alpha background including exterior; no backdrop, no checkerboard pattern, no photography. No people, deity statues, mascot, cartoon face, readable text, Chinese characters, lettering, signage, logo, watermark, frame, floating coins or confetti. Keep the architecture clearly imaginative and decorative, never claim this is the actual Guang Hou Gong building. The real website name and all captions will be rendered by HTML."
+    }
+  ]
+}

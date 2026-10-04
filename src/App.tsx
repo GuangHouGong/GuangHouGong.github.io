@@ -179,6 +179,7 @@ const sourceLinks = [
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [heroImageFailed, setHeroImageFailed] = useState(false);
   const menuButton = useRef<HTMLButtonElement>(null);
   const [largeText, setLargeText] = useState(() => {
     try {
@@ -260,19 +261,31 @@ function App() {
           </div>
 
           <aside className="hero-summary" aria-label="廣厚宮信仰意象">
-            <div className="temple-visual" aria-hidden="true">
-              <div className="tree-canopy" />
-              <div className="temple-roof" />
-              <div className="temple-hall">
-                <span className="temple-plaque">土城廣厚宮</span>
-                <div className="deity-seals">
-                  <span>福</span>
-                  <span>財</span>
+            {heroImageFailed ? (
+              <div className="temple-visual" aria-hidden="true">
+                <div className="tree-canopy" />
+                <div className="temple-roof" />
+                <div className="temple-hall">
+                  <span className="temple-plaque">土城廣厚宮</span>
+                  <div className="deity-seals">
+                    <span>福</span>
+                    <span>財</span>
+                  </div>
                 </div>
+                <div className="temple-base">平安・福德・納財</div>
               </div>
-              <div className="temple-base">平安・福德・納財</div>
-            </div>
-            <p className="visual-caption">老樟樹與福德信仰意象</p>
+            ) : (
+              <img
+                className="temple-hero-image"
+                src="/assets/temple-faith-hero.webp"
+                alt=""
+                width={1024}
+                height={1024}
+                fetchPriority="high"
+                onError={() => setHeroImageFailed(true)}
+              />
+            )}
+            <p className="visual-caption">老樟樹與福德信仰意象插畫</p>
           </aside>
         </section>
 

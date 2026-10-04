@@ -95,12 +95,16 @@ rsvg-convert -w 1200 -h 630 public/assets/og-image.svg -o public/assets/og-image
 rsvg-convert -w 180 -h 180 public/assets/logo.svg -o public/assets/apple-touch-icon.png
 ```
 
-## 視覺素材建議
+## ChatGPT 首頁插畫
 
-目前網站使用 SVG 與 CSS 製作金紅色宮廟風格主視覺，不依賴外部圖片。若後續要產生正式社群分享圖或首頁主視覺，可以使用下列提示詞：
+首頁 `public/assets/temple-faith-hero.webp` 使用 ChatGPT 內建 `image_gen` 於 2026-10-05 生成，以紅金色立體微縮宮廟、老樟樹與元寶呈現福德信仰意象。它是裝飾性插畫，不是真實廣厚宮建築、現場照片或廟方史料。網站名稱、按鈕與文字仍以 HTML 顯示；圖片載入失敗時使用原有 CSS 意象。
 
-```text
-以台灣宮廟美學設計一張正式乾淨的網站主視覺，主題為「土城廣厚宮福德正神・玄壇財神」。畫面重點是宮廟、福德正神、玄壇財神與土城在地信仰，可加入老樟樹、金色光暈、元寶、福字與財字元素。使用金色、紅色、深棕、米白色，風格莊重、現代、清晰，避免過度花俏，不要把抽獎輪盤當主視覺。16:9 橫式構圖，保留中央文字安全區，不要出現假地址或假電話。
+透明原圖為 1254×1254，僅縮為 1024×1024 並壓縮為 WebP，保留 alpha。圖片存在本專案，不依賴外部 URL 或付費 API；正式網站只載入成品，不執行圖片生成。完整生成提示詞、用途與處理紀錄見 [artwork-prompts.json](./public/assets/artwork-prompts.json)。
+
+重新輸出成品可使用 ImageMagick：
+
+```bash
+magick generated-hero.png -resize 1024x1024 -quality 88 -define webp:alpha-quality=100 public/assets/temple-faith-hero.webp
 ```
 
 ## 改版驗證紀錄
@@ -108,6 +112,8 @@ rsvg-convert -w 180 -h 180 public/assets/logo.svg -o public/assets/apple-touch-i
 2026-10-05 使用 Chrome 檢查 320px／390px 手機視窗、820×1180／1180×820 平板視窗與 1920×1080 桌機視窗；標準／大字均無水平溢出。實際 Chrome 200% 縮放加大字模式亦確認錨點標題不被導覽遮住。選單 Escape、Tab 離開收合、錨點焦點、FAQ 鍵盤展開與字級重新載入已檢查。
 
 執行 `npm run lint`、`npm run build`、`git diff --check`；相容修復後 `npm audit` 回報 0 弱點。CI 使用 Node.js 24。尚未執行 iOS Safari／Android 實機或 VoiceOver／TalkBack 驗收；桌面視窗模擬不等於實機驗收。社群分享圖檔已生成並檢視，第三方平台舊預覽快取需待平台重新擷取。
+
+同日追加 ChatGPT 首頁插畫驗收：1024×1024 透明 WebP 352 KB；手機 320／390px、平板直橫向與大字模式均確認圖片載入且沒有水平溢出，桌機主視覺比例已檢視。
 
 ## 開源授權
 

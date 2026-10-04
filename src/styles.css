@@ -240,6 +240,15 @@ a {
   justify-items: center;
 }
 
+.temple-hero-image {
+  display: block;
+  justify-self: center;
+  width: min(100%, 25rem);
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: contain;
+}
+
 .temple-visual {
   position: relative;
   width: min(100%, 28rem);

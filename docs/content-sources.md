@@ -34,3 +34,7 @@
 主站連至 [功德會抽獎](https://guanghougong.github.io/fortune-draw-wheel/) 與 [使用說明](https://guanghougong.github.io/fortune-draw-wheel/#/help)。功能說明以獨立抽獎專案 2026-10-05 已部署版本為準：多活動、獎項、組別、試抽、轉盤／跳號／快速開獎、缺席補抽與 JSON／CSV 匯出。資料存在使用者瀏覽器；離線重開須先看到工具的「已準備離線使用」。
 
 主站沒有讀取或複製活動資料。公開吉祥物素材另存為主站本機副本，兩個 repository 各自版本管理。
+
+## 首頁信仰意象插畫
+
+2026-10-05 使用 ChatGPT 內建 `image_gen` 生成，提示詞記錄於 `public/assets/artwork-prompts.json`，成品為 `public/assets/temple-faith-hero.webp`。主題為老樟樹、泛化的台灣微縮宮廟與元寶；屬裝飾性插畫，不表示實際廣厚宮的建築外觀，也不是廟史資料來源。未改動既有公開史料、法人名稱、公告日期或官方聯絡網址。
