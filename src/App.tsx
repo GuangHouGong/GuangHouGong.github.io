@@ -11,7 +11,7 @@ const navItems = [
   { label: '主祀信仰', href: '#deities' },
   { label: '參拜資訊', href: '#visit' },
   { label: '常見問題', href: '#faq' },
-  { label: '公告聯絡', href: '#contact' },
+  { label: '公告聯絡', href: '#announcements' },
   { label: '活動工具', href: '#tools' },
   { label: '資料來源', href: '#sources' },
 ];
@@ -248,7 +248,7 @@ function App() {
             <h1 id="hero-title">土城廣厚宮</h1>
             <p className="hero-subtitle">福德正神・玄壇財神官方網站</p>
             <p className="hero-copy">
-              廣厚宮承載土地公信仰、老樟樹地方記憶與信眾祈願。在這裡認識廣厚宮的在地故事與主祀信仰，並找到參拜、活動公告與官方聯絡資訊。
+              認識廣厚宮的在地故事與福德、財神信仰，查詢參拜安排、活動公告及官方聯絡方式。
             </p>
             <div className="hero-actions">
               <a className="button primary" href="#story">
@@ -289,17 +289,7 @@ function App() {
           </aside>
         </section>
 
-        <section className="fact-band" aria-label="土城廣厚宮公開資料摘要">
-          {verifiedFacts.map((fact) => (
-            <article key={fact.label}>
-              <strong>{fact.value}</strong>
-              <span>{fact.label}</span>
-              <p>{fact.detail}</p>
-            </article>
-          ))}
-        </section>
-
-        <section className="section notice-section" aria-labelledby="notice-title">
+        <section className="section notice-section" id="announcements" tabIndex={-1} aria-labelledby="notice-title">
           <div className="section-heading">
             <p className="section-kicker">公告與參拜</p>
             <h2 id="notice-title">最新公告與參拜安排</h2>
@@ -315,6 +305,16 @@ function App() {
               </article>
             ))}
           </div>
+        </section>
+
+        <section className="fact-band" aria-label="土城廣厚宮公開資料摘要">
+          {verifiedFacts.map((fact) => (
+            <article key={fact.label}>
+              <strong>{fact.value}</strong>
+              <span>{fact.label}</span>
+              <p>{fact.detail}</p>
+            </article>
+          ))}
         </section>
 
         <section className="section story-section" id="story" tabIndex={-1} aria-labelledby="story-title">
