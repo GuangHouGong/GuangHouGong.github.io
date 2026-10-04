@@ -11,7 +11,7 @@ const navItems = [
   { label: '主祀信仰', href: '#deities' },
   { label: '參拜資訊', href: '#visit' },
   { label: '常見問題', href: '#faq' },
-  { label: '公告聯絡', href: '#announcements' },
+  { label: '公告與聯絡', href: '#announcements' },
   { label: '活動工具', href: '#tools' },
   { label: '資料來源', href: '#sources' },
 ];
@@ -88,11 +88,11 @@ const deityItems = [
 const visitItems = [
   {
     title: '平安祈福',
-    description: '以福德正神信仰為核心，承載信眾祈求地方平安、家宅順遂與福德庇佑。',
+    description: '向福德正神祈求地方平安、家宅順遂與福德庇佑。',
   },
   {
     title: '求財納福',
-    description: '以玄壇財神信仰回應事業、財運與生活順遂的祈願。',
+    description: '向玄壇財神祈求事業、財運與生活順遂。',
   },
   {
     title: '節慶活動',
@@ -100,7 +100,7 @@ const visitItems = [
   },
   {
     title: '聯絡詢問',
-    description: '若需詢問參拜、祈福服務或活動協助，建議由官方 Facebook 取得最新回覆。',
+    description: '想了解參拜、祈福服務或活動安排，可透過官方 Facebook 聯絡廟方。',
   },
 ];
 
@@ -108,7 +108,7 @@ const noticeItems = [
   {
     label: '最新公告',
     title: '以官方 Facebook 發布為準',
-    description: '活動、祭典、服務異動與臨時通知，統一導向官方 Facebook 查詢。',
+    description: '最新活動、祭典及服務調整，請查看官方 Facebook 公告。',
   },
   {
     label: '前往參拜',
@@ -125,7 +125,7 @@ const noticeItems = [
 const faqItems = [
   {
     question: '最新活動與公告要去哪裡看？',
-    answer: '請以土城廣厚宮官方 Facebook 頁面為準。本網站保留官方連結，避免重複轉載後產生版本落差。',
+    answer: '請到土城廣厚宮官方 Facebook 查看最新消息。活動時間與服務安排，請以廟方公告為準。',
   },
   {
     question: '出發參拜前，需要確認哪些資訊？',
@@ -133,14 +133,14 @@ const faqItems = [
       '請先向廟方確認地址、開放時間與參拜安排。您可以透過本頁的官方 Facebook 連結查看公告，或直接聯絡詢問。',
   },
   {
-    question: '福德正神與玄壇財神介紹是廟史嗎？',
+    question: '神明介紹和廣厚宮的故事有什麼不同？',
     answer:
-      '不是。神明介紹屬於民間信仰背景整理；廣厚宮專屬廟史只採可查來源與官方資訊，兩者在頁面上分開呈現。',
+      '神明介紹說明福德正神與玄壇財神的民間信仰背景；廣厚宮的故事則依地方報導與公開紀錄整理，可在「廟宇故事」與「資料來源」查看。',
   },
   {
     question: '活動抽獎工具怎麼使用？',
     answer:
-      '從「活動工具」開啟功德會抽獎，建立活動、輸入名單與獎項，先試抽再正式開始。結束後請下載結果與 JSON 備份；換裝置時再匯入備份。',
+      '從「活動工具」開啟功德會抽獎，建立活動、輸入名單與獎項，先試抽再正式開始。結束後請下載中獎名單與活動備份；換裝置時再匯入備份。',
   },
 ];
 
@@ -226,7 +226,7 @@ function App() {
         </a>
         <div className="header-controls">
           <button className="text-toggle" type="button" aria-pressed={largeText} onClick={() => setLargeText(!largeText)}>
-            {largeText ? '標準字' : '大字模式'}
+            {largeText ? '一般字體' : '大字模式'}
           </button>
           <button className="menu-toggle" type="button" ref={menuButton} aria-expanded={menuOpen} aria-controls="site-navigation" onClick={() => setMenuOpen(!menuOpen)}>
             {menuOpen ? '關閉選單' : '選單'}
@@ -252,7 +252,7 @@ function App() {
             </p>
             <div className="hero-actions">
               <a className="button primary" href="#story">
-                閱讀廟宇故事
+                認識廣厚宮
               </a>
               <a className="button secondary" href={facebookUrl} target="_blank" rel="noopener noreferrer" aria-describedby="external-link-note">
                 聯絡廟方
@@ -322,7 +322,7 @@ function App() {
             <p className="section-kicker">廟宇故事</p>
             <h2 id="story-title">老樟樹、土地公與廣厚宮的地方記憶</h2>
             <p>
-              目前可公開查得的廣厚宮在地資料，主要來自 2018 年地方報導與司法院法人登記公告。下列內容採「公開資料整理」方式呈現，正式活動與服務仍以廟方公告為準。
+              從老樟樹與土地公的故事，認識廣厚宮與地方居民的連結。以下內容依 2018 年地方報導與司法院法人登記公告整理。
             </p>
           </div>
           <div className="story-layout">
@@ -351,7 +351,7 @@ function App() {
           <div className="section-heading centered">
             <p className="section-kicker">主祀信仰</p>
             <h2 id="deities-title">福德守土，玄壇納財</h2>
-            <p>廣厚宮名稱與公開資訊指向福德正神與玄壇財神信仰。神明背景採民間信仰通說整理，與廣厚宮專屬沿革分開呈現。</p>
+            <p>認識福德正神與玄壇財神，了解守護地方、祈求平安與招財納福的民間信仰。以下為信仰背景介紹，廣厚宮的在地故事請見「廟宇故事」。</p>
           </div>
           <div className="deity-grid">
             {deityItems.map((deity) => (
@@ -377,8 +377,8 @@ function App() {
         <section className="section visit-section" id="visit" tabIndex={-1} aria-labelledby="visit-title">
           <div className="section-heading">
             <p className="section-kicker">參拜資訊</p>
-            <h2 id="visit-title">信眾常見需求</h2>
-            <p>下列資訊以信仰方向與聯絡方式整理，具體活動、時程與服務細節請以官方 Facebook 最新公告為準。</p>
+            <h2 id="visit-title">參拜與祈福</h2>
+            <p>想了解參拜、祈福或節慶活動，可先查看以下說明。實際時間與服務安排，請查看官方 Facebook 公告，或向廟方詢問。</p>
           </div>
           <div className="visit-grid">
             {visitItems.map((item) => (
@@ -408,7 +408,7 @@ function App() {
 
         <section className="section contact-section" id="contact" tabIndex={-1} aria-labelledby="contact-title">
           <div>
-            <p className="section-kicker">公告聯絡</p>
+            <p className="section-kicker">公告與聯絡</p>
             <h2 id="contact-title">最新消息以官方 Facebook 為準</h2>
             <p>
               宮廟活動、祈福服務、臨時公告與聯絡詢問，請前往官方 Facebook 查看最新資訊，或向廟方詢問參拜安排。
@@ -423,20 +423,20 @@ function App() {
           <div className="section-heading">
             <p className="section-kicker">數位活動工具</p>
             <h2 id="project-title">土城廣厚宮功德會抽獎</h2>
-            <p>免費的活動抽獎工具，手機、平板與電腦都能使用。名單與紀錄保存在使用的瀏覽器。</p>
+            <p>免費的活動抽獎工具，手機、平板與電腦都能使用。名單與紀錄儲存在目前使用的瀏覽器。</p>
           </div>
           <div className="project-panel">
             <img className="draw-mascot" src="/assets/draw-mascot.webp" alt="功德會抽獎吉祥物迎賓公仔" width="400" height="400" loading="lazy" />
             <div className="project-content">
               <h3>從準備到開獎，一步一步完成</h3>
               <ol className="draw-steps">
-                <li><strong>準備活動</strong><span>貼上姓名、快速連號，或匯入 Excel；設定獎項與組別後先試抽。</span></li>
+                <li><strong>準備活動</strong><span>貼上姓名、產生連號，或匯入 Excel 名單；設定獎項與組別後先試抽。</span></li>
                 <li><strong>現場開獎</strong><span>選擇轉盤、跳號或快速開獎；按開始、停止，再抽下一位。缺席可保留紀錄並補抽。</span></li>
-                <li><strong>帶走紀錄</strong><span>下載中獎結果與 JSON 備份。換裝置時匯入備份，繼續管理活動。</span></li>
+                <li><strong>帶走紀錄</strong><span>下載中獎名單與活動備份。換裝置時匯入備份，繼續管理活動。</span></li>
               </ol>
               <div className="project-links" aria-label="功德會抽獎相關連結">
                 <a className="button primary" href={drawUrl}>開啟功德會抽獎</a>
-                <a href={`${drawUrl}#/help`}>閱讀抽獎使用說明</a>
+                <a href={`${drawUrl}#/help`}>查看抽獎使用說明</a>
                 <a href="https://github.com/GuangHouGong/fortune-draw-wheel" target="_blank" rel="noopener noreferrer" aria-describedby="external-link-note">查看開源程式</a>
               </div>
               <p className="data-note">不需帳號。活動資料不會自動同步；清除瀏覽器資料或換裝置前，請先下載備份。抽獎工具顯示「已準備離線使用」後，才能在斷網時重開。</p>
@@ -448,7 +448,7 @@ function App() {
           <div className="section-heading">
             <p className="section-kicker">資料來源</p>
             <h2 id="source-title">公開資料與信仰背景參考</h2>
-            <p>史料數字保留報導當年的記載；主祀介紹為信仰背景參考。網站內容整理日期：2026 年 10 月 5 日。</p>
+            <p>歷史年份與數字依原始報導記載；神明介紹提供民間信仰背景參考。網站內容整理日期：2026 年 10 月 5 日。</p>
           </div>
           <ul className="source-list">
             {sourceLinks.map((source) => (
