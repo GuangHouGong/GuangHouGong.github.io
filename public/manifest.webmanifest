@@ -9,6 +9,7 @@
   "theme_color": "#8f1d16",
   "lang": "zh-Hant-TW",
   "icons": [
+    { "src": "/assets/apple-touch-icon.png", "sizes": "180x180", "type": "image/png", "purpose": "any" },
     {
       "src": "/assets/favicon.svg",
       "sizes": "64x64",
@@ -19,7 +20,7 @@
       "src": "/assets/logo.svg",
       "sizes": "180x180",
       "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "purpose": "any"
     }
   ]
 }

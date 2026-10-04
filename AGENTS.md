@@ -39,6 +39,14 @@
 - Keep the layout responsive for mobile, tablet, and desktop.
 - Avoid decorative clutter; the site should feel formal and official.
 
+## Independent Project And Data Boundaries
+
+- Keep this repository and `../fortune-draw-wheel` independently built and deployed; do not move or merge their files or user data.
+- The root site may write only its own display preference key `guanghougong.site.preferences.v1`. Do not read, migrate, clear, or overwrite lottery storage. Never call `localStorage.clear()`.
+- Do not register a root-scope service worker that could control `/fortune-draw-wheel/`.
+- Keep public source dates distinct from website editing dates. Maintain `docs/content-sources.md` when temple facts or their references change.
+- A corporation's registered office is not verified temple visitor information. Do not publish it as the temple address without official confirmation.
+
 ## SEO And Public Files
 
 - Keep `index.html` metadata in sync with the official site name and production URL.

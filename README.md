@@ -1,6 +1,6 @@
 # 土城廣厚宮福德正神・玄壇財神官方網站
 
-土城廣厚宮福德正神・玄壇財神官方網站，以介紹土城廣厚宮、主祀神明、老樟樹在地信仰故事、參拜資訊與官方聯絡方式為主。抽獎輪盤 App 僅作為宮廟活動的數位輔助工具連結。
+土城廣厚宮福德正神・玄壇財神官方網站，以介紹土城廣厚宮、主祀神明、老樟樹在地信仰故事、參拜資訊與官方聯絡方式為主。「土城廣厚宮功德會抽獎」在次要的數位活動工具區提供正式入口、使用說明與開源連結。
 
 ## 網站網址
 
@@ -29,7 +29,7 @@ npm run preview
 部署流程使用 `.github/workflows/deploy.yml`：
 
 1. push 到 `main`。
-2. GitHub Actions 執行 `npm ci` 與 `npm run build`。
+2. GitHub Actions 使用 Node.js 24，執行 `npm ci`、`npm run lint` 與 `npm run build`。
 3. 將 `dist` 上傳並部署到 GitHub Pages。
 
 GitHub repository 的 Pages 設定需選擇 GitHub Actions 作為部署來源。
@@ -49,7 +49,9 @@ GitHub repository 的 Pages 設定需選擇 GitHub Actions 作為部署來源。
 
 - 2018 年中時新聞網報導：土城廣厚宮旁大樟樹經新北市政府樹木保護委員會列管，編號 1,048；報導亦記載樟樹胸徑 105 公分、樹齡推估逾百年，樹下石刻土地公約 170 年歷史。
 - 司法院法人登記公告：`社團法人新北市土城廣厚福德正神功德會`，臺灣新北地方法院登記號數 1550，公告日期 2021-01-20。
-- 第二輪查詢後，仍未找到可直接確認地址、電話與開放時間的官方公開文字來源；首頁目前以資料狀態與 FAQ 保守呈現。
+- 2021 年法人公告使用永久來源：https://www.judicial.gov.tw/tw/cp-144-361173-a21a8-1.html 。公告日期為 2021-01-20，內文登記日期為 2021-01-18，兩者不可混用。
+- 地址、電話、開放時間與具體服務安排仍以廟方確認為準。法人主事務所不等於寺廟地址；不將登記地址自動放入參拜資訊。
+- 來源、日期與維護範圍整理在 [資料來源紀錄](./docs/content-sources.md)。
 - 官方聯絡與公告連結保留 Facebook 頁面：
   `https://www.facebook.com/p/%E5%9C%9F%E5%9F%8E%E5%BB%A3%E5%8E%9A%E5%AE%AE%E7%A6%8F%E5%BE%B7%E6%AD%A3%E7%A5%9E%E7%8E%84%E5%A3%87%E8%B2%A1%E7%A5%9E-100080180056129/`
 - 福德正神與玄壇財神介紹屬信仰背景整理，應與廣厚宮專屬沿革分開呈現，避免把通用信仰資料寫成廟方史實。
@@ -65,12 +67,33 @@ GitHub repository 的 Pages 設定需選擇 GitHub Actions 作為部署來源。
 - `robots.txt`。
 - `sitemap.xml`。
 - `manifest.webmanifest`。
-- `favicon.svg`、`logo.svg`、`og-image.svg`。
+- `favicon.svg`、`logo.svg`，以及 `og-image.png`（1200×630）與 `apple-touch-icon.png`（180×180）；SVG 來源仍保留，PNG 供社群分享與裝置圖示使用。
 
 ## 相關專案連結
 
-- 抽獎輪盤 App Demo：https://guanghougong.github.io/fortune-draw-wheel/
-- 抽獎輪盤 App GitHub repo：https://github.com/GuangHouGong/fortune-draw-wheel
+- 功德會抽獎正式入口：https://guanghougong.github.io/fortune-draw-wheel/
+- 功德會抽獎原始碼：https://github.com/GuangHouGong/fortune-draw-wheel
+
+## 介面與資料保護
+
+- 正文預設 18px，可切換 22px 大字模式；手機使用可收合選單，支援鍵盤、焦點提示與減少動畫。
+- 首頁仍以廣厚宮故事、主祀信仰、參拜確認與官方聯絡為主；活動工具區在頁面後段。
+- 主站與 `../fortune-draw-wheel` 是獨立 repository、獨立建置與部署。主站 `base: '/'`，抽獎 `base: '/fortune-draw-wheel/'`；不合併原始碼或備份資料。
+- 主站只使用 `guanghougong.site.preferences.v1` 儲存字級偏好；不讀寫抽獎名單、結果或歷史資料，不呼叫 `localStorage.clear()`。
+- 同一個 GitHub Pages origin 下的 localStorage 並不按 URL 路徑隔離，因此必須維持專案各自的 storage key，不能清理其他專案 key。
+- 主站不註冊根路徑 service worker，避免控制抽獎工具的離線範圍。主站本身不承諾斷網重開。
+- 抽獎資料由抽獎工具管理並保存在當前瀏覽器，不會自動同步；換裝置／清除瀏覽器資料前請下載 JSON 備份。詳細操作見 [抽獎使用說明](https://guanghougong.github.io/fortune-draw-wheel/#/help)。
+
+## 素材維護
+
+`public/assets/draw-mascot.webp` 是新版功德會抽獎迎賓吉祥物的本機副本，只用於數位活動工具區。來源為獨立抽獎專案的 `public/assets/mascot-welcome.webp`（2026-10-05 版本）；未使用外部圖片 URL，未改動主站既有宮廟識別。兩站各自保有素材，抽獎專案改檔不會自動覆蓋主站。
+
+分享圖與圖示可由現有 SVG 重新轉出（需本機 `rsvg-convert`，CI 不需額外安裝）：
+
+```bash
+rsvg-convert -w 1200 -h 630 public/assets/og-image.svg -o public/assets/og-image.png
+rsvg-convert -w 180 -h 180 public/assets/logo.svg -o public/assets/apple-touch-icon.png
+```
 
 ## 視覺素材建議
 
@@ -79,6 +102,12 @@ GitHub repository 的 Pages 設定需選擇 GitHub Actions 作為部署來源。
 ```text
 以台灣宮廟美學設計一張正式乾淨的網站主視覺，主題為「土城廣厚宮福德正神・玄壇財神」。畫面重點是宮廟、福德正神、玄壇財神與土城在地信仰，可加入老樟樹、金色光暈、元寶、福字與財字元素。使用金色、紅色、深棕、米白色，風格莊重、現代、清晰，避免過度花俏，不要把抽獎輪盤當主視覺。16:9 橫式構圖，保留中央文字安全區，不要出現假地址或假電話。
 ```
+
+## 改版驗證紀錄
+
+2026-10-05 使用 Chrome 檢查 320px／390px 手機視窗、820×1180／1180×820 平板視窗與 1920×1080 桌機視窗；標準／大字均無水平溢出。實際 Chrome 200% 縮放加大字模式亦確認錨點標題不被導覽遮住。選單 Escape、Tab 離開收合、錨點焦點、FAQ 鍵盤展開與字級重新載入已檢查。
+
+執行 `npm run lint`、`npm run build`、`git diff --check`；相容修復後 `npm audit` 回報 0 弱點。CI 使用 Node.js 24。尚未執行 iOS Safari／Android 實機或 VoiceOver／TalkBack 驗收；桌面視窗模擬不等於實機驗收。社群分享圖檔已生成並檢視，第三方平台舊預覽快取需待平台重新擷取。
 
 ## 開源授權
 

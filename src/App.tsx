@@ -1,5 +1,10 @@
+import { useEffect, useRef, useState } from 'react';
+
 const facebookUrl =
   'https://www.facebook.com/p/%E5%9C%9F%E5%9F%8E%E5%BB%A3%E5%8E%9A%E5%AE%AE%E7%A6%8F%E5%BE%B7%E6%AD%A3%E7%A5%9E%E7%8E%84%E5%A3%87%E8%B2%A1%E7%A5%9E-100080180056129/';
+
+const preferenceKey = 'guanghougong.site.preferences.v1';
+const drawUrl = 'https://guanghougong.github.io/fortune-draw-wheel/';
 
 const navItems = [
   { label: '廟宇故事', href: '#story' },
@@ -7,6 +12,7 @@ const navItems = [
   { label: '參拜資訊', href: '#visit' },
   { label: '常見問題', href: '#faq' },
   { label: '公告聯絡', href: '#contact' },
+  { label: '活動工具', href: '#tools' },
   { label: '資料來源', href: '#sources' },
 ];
 
@@ -24,7 +30,7 @@ const verifiedFacts = [
   {
     value: '約 170 年',
     label: '石刻土地公記憶',
-    detail: '報導引述地方提報，樟樹下石刻土地公已有約 170 年歷史。',
+    detail: '2018 年報導引述地方提報，石刻土地公當時已有約 170 年歷史。',
   },
   {
     value: '1550',
@@ -105,14 +111,14 @@ const noticeItems = [
     description: '活動、祭典、服務異動與臨時通知，統一導向官方 Facebook 查詢。',
   },
   {
-    label: '資料更新',
-    title: '本頁資料更新至 2026-07-08',
-    description: '目前已整理老樟樹報導、功德會法人公告、主祀信仰背景與官方聯絡入口。',
+    label: '前往參拜',
+    title: '出發前，先確認參拜安排',
+    description: '地址、開放時間與服務細節，請透過官方 Facebook 向廟方確認。',
   },
   {
-    label: '待補資訊',
-    title: '地址、電話、開放時間待官方確認',
-    description: '未有可靠官方文字來源前，不在首頁寫死，避免信眾依錯誤資訊前往或聯絡。',
+    label: '聯絡廟方',
+    title: '參拜與活動問題，直接詢問',
+    description: '需要了解祈福服務或活動安排，可由官方 Facebook 聯絡廟方。',
   },
 ];
 
@@ -122,9 +128,9 @@ const faqItems = [
     answer: '請以土城廣厚宮官方 Facebook 頁面為準。本網站保留官方連結，避免重複轉載後產生版本落差。',
   },
   {
-    question: '為什麼目前沒有列地址、電話或開放時間？',
+    question: '出發參拜前，需要確認哪些資訊？',
     answer:
-      '目前公開搜尋沒有找到足以確認的官方文字來源；為避免誤導信眾，這些資訊會等廟方提供或正式公告後再補上。',
+      '請先向廟方確認地址、開放時間與參拜安排。您可以透過本頁的官方 Facebook 連結查看公告，或直接聯絡詢問。',
   },
   {
     question: '福德正神與玄壇財神介紹是廟史嗎？',
@@ -132,9 +138,9 @@ const faqItems = [
       '不是。神明介紹屬於民間信仰背景整理；廣厚宮專屬廟史只採可查來源與官方資訊，兩者在頁面上分開呈現。',
   },
   {
-    question: '抽獎輪盤 App 是首頁主功能嗎？',
+    question: '活動抽獎工具怎麼使用？',
     answer:
-      '不是。抽獎輪盤是活動輔助工具，首頁主軸仍是土城廣厚宮介紹、在地故事、主祀信仰與公告聯絡。',
+      '從「活動工具」開啟功德會抽獎，建立活動、輸入名單與獎項，先試抽再正式開始。結束後請下載結果與 JSON 備份；換裝置時再匯入備份。',
   },
 ];
 
@@ -150,8 +156,13 @@ const sourceLinks = [
     note: '大樟樹與在地故事',
   },
   {
+    label: '新北市政府綠美化環境景觀處：珍貴樹木查詢',
+    href: 'https://www.landscaping.ntpc.gov.tw/cht/index.php?act=precious_trees&code=search',
+    note: '樹木列管查詢（1048）',
+  },
+  {
     label: '司法院法人登記公告',
-    href: 'https://www.judicial.gov.tw/tw/lp-144-1-592-60.html',
+    href: 'https://www.judicial.gov.tw/tw/cp-144-361173-a21a8-1.html',
     note: '功德會登記紀錄',
   },
   {
@@ -167,9 +178,44 @@ const sourceLinks = [
 ];
 
 function App() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuButton = useRef<HTMLButtonElement>(null);
+  const [largeText, setLargeText] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem(preferenceKey) ?? '{}').largeText === true;
+    } catch {
+      return false;
+    }
+  });
+
+  useEffect(() => {
+    document.documentElement.dataset.largeText = String(largeText);
+    try {
+      localStorage.setItem(preferenceKey, JSON.stringify({ largeText }));
+    } catch {
+      // Reading remains available when saving a display preference is blocked.
+    }
+  }, [largeText]);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const closeMenu = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setMenuOpen(false);
+        menuButton.current?.focus();
+      }
+    };
+    document.addEventListener('keydown', closeMenu);
+    return () => document.removeEventListener('keydown', closeMenu);
+  }, [menuOpen]);
+
   return (
-    <main className="site-shell">
-      <header className="site-header" aria-label="主要導覽">
+    <div className="site-shell">
+      <a className="skip-link" href="#main-content">跳到主要內容</a>
+      <span className="sr-only" id="external-link-note">此連結會另開視窗。</span>
+      <header className="site-header" aria-label="主要導覽" onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) setMenuOpen(false);
+      }}>
         <a className="brand" href="/" aria-label="土城廣厚宮首頁">
           <img src="/assets/logo.svg" alt="" className="brand-mark" />
           <span>
@@ -177,231 +223,239 @@ function App() {
             <small>福德正神・玄壇財神</small>
           </span>
         </a>
-        <nav className="nav-links">
+        <div className="header-controls">
+          <button className="text-toggle" type="button" aria-pressed={largeText} onClick={() => setLargeText(!largeText)}>
+            {largeText ? '標準字' : '大字模式'}
+          </button>
+          <button className="menu-toggle" type="button" ref={menuButton} aria-expanded={menuOpen} aria-controls="site-navigation" onClick={() => setMenuOpen(!menuOpen)}>
+            {menuOpen ? '關閉選單' : '選單'}
+          </button>
+        </div>
+        <nav id="site-navigation" aria-label="網站導覽" className={`nav-links${menuOpen ? ' is-open' : ''}`}>
           {navItems.map((item) => (
-            <a key={item.href} href={item.href}>
+            <a key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>
               {item.label}
             </a>
           ))}
         </nav>
       </header>
 
-      <section className="hero" aria-labelledby="hero-title">
-        <div className="hero-content">
-          <p className="eyebrow">土城在地信仰・福德庇佑・財神護持</p>
-          <h1 id="hero-title">土城廣厚宮</h1>
-          <p className="hero-subtitle">福德正神・玄壇財神官方網站</p>
-          <p className="hero-copy">
-            廣厚宮承載土地公信仰、老樟樹地方記憶與信眾祈願。此處整理可查公開資料、主祀神明背景與官方聯絡管道，協助信眾認識土城廣厚宮。
-          </p>
-          <div className="hero-actions">
-            <a className="button primary" href="#story">
-              閱讀廟宇故事
-            </a>
-            <a className="button secondary" href={facebookUrl} target="_blank" rel="noreferrer">
-              聯絡廟方
-            </a>
-          </div>
-        </div>
-
-        <aside className="hero-summary" aria-label="公開資料摘要">
-          <div className="temple-visual" aria-hidden="true">
-            <div className="tree-canopy" />
-            <div className="temple-roof" />
-            <div className="temple-hall">
-              <span className="temple-plaque">土城廣厚宮</span>
-              <div className="deity-seals">
-                <span>福</span>
-                <span>財</span>
-              </div>
+      <main id="main-content" tabIndex={-1}>
+        <section className="hero" aria-labelledby="hero-title">
+          <div className="hero-content">
+            <p className="eyebrow">土城在地信仰・福德庇佑・財神護持</p>
+            <h1 id="hero-title">土城廣厚宮</h1>
+            <p className="hero-subtitle">福德正神・玄壇財神官方網站</p>
+            <p className="hero-copy">
+              廣厚宮承載土地公信仰、老樟樹地方記憶與信眾祈願。在這裡認識廣厚宮的在地故事與主祀信仰，並找到參拜、活動公告與官方聯絡資訊。
+            </p>
+            <div className="hero-actions">
+              <a className="button primary" href="#story">
+                閱讀廟宇故事
+              </a>
+              <a className="button secondary" href={facebookUrl} target="_blank" rel="noopener noreferrer" aria-describedby="external-link-note">
+                聯絡廟方
+              </a>
             </div>
-            <div className="temple-base">平安・福德・納財</div>
           </div>
-          <dl className="hero-facts">
-            {verifiedFacts.slice(0, 3).map((fact) => (
-              <div key={fact.label}>
-                <dt>{fact.label}</dt>
-                <dd>{fact.value}</dd>
+
+          <aside className="hero-summary" aria-label="廣厚宮信仰意象">
+            <div className="temple-visual" aria-hidden="true">
+              <div className="tree-canopy" />
+              <div className="temple-roof" />
+              <div className="temple-hall">
+                <span className="temple-plaque">土城廣厚宮</span>
+                <div className="deity-seals">
+                  <span>福</span>
+                  <span>財</span>
+                </div>
               </div>
-            ))}
-          </dl>
-        </aside>
-      </section>
+              <div className="temple-base">平安・福德・納財</div>
+            </div>
+            <p className="visual-caption">老樟樹與福德信仰意象</p>
+          </aside>
+        </section>
 
-      <section className="fact-band" aria-label="土城廣厚宮公開資料摘要">
-        {verifiedFacts.map((fact) => (
-          <article key={fact.label}>
-            <strong>{fact.value}</strong>
-            <span>{fact.label}</span>
-            <p>{fact.detail}</p>
-          </article>
-        ))}
-      </section>
-
-      <section className="section notice-section" aria-labelledby="notice-title">
-        <div className="section-heading">
-          <p className="section-kicker">公告與資料狀態</p>
-          <h2 id="notice-title">先確認來源，再補上首頁資訊</h2>
-          <p>第二輪整理後，仍未找到可直接確認地址、電話與開放時間的官方公開文字；目前採保守呈現，讓信眾知道下一步該看哪裡。</p>
-        </div>
-        <div className="notice-grid">
-          {noticeItems.map((item) => (
-            <article key={item.label}>
-              <span>{item.label}</span>
-              <h3>{item.title}</h3>
-              <p>{item.description}</p>
+        <section className="fact-band" aria-label="土城廣厚宮公開資料摘要">
+          {verifiedFacts.map((fact) => (
+            <article key={fact.label}>
+              <strong>{fact.value}</strong>
+              <span>{fact.label}</span>
+              <p>{fact.detail}</p>
             </article>
           ))}
-        </div>
-      </section>
+        </section>
 
-      <section className="section story-section" id="story" aria-labelledby="story-title">
-        <div className="section-heading">
-          <p className="section-kicker">廟宇故事</p>
-          <h2 id="story-title">老樟樹、土地公與廣厚宮的地方記憶</h2>
-          <p>
-            目前可公開查得的廣厚宮在地資料，主要來自 2018 年地方報導與司法院法人登記公告。下列內容採「公開資料整理」方式呈現，正式活動與服務仍以廟方公告為準。
-          </p>
-        </div>
-        <div className="story-layout">
-          <div className="story-timeline">
-            {storyItems.map((item) => (
-              <article key={`${item.year}-${item.title}`} className="timeline-item">
-                <span>{item.year}</span>
-                <div>
-                  <h3>{item.title}</h3>
-                  <p>{item.description}</p>
-                </div>
+        <section className="section notice-section" aria-labelledby="notice-title">
+          <div className="section-heading">
+            <p className="section-kicker">公告與參拜</p>
+            <h2 id="notice-title">最新公告與參拜安排</h2>
+            <p>祭典、活動與服務安排，以廟方最新公告為準。出發前可先查看消息，或向廟方詢問。</p>
+          </div>
+          <div className="notice-grid">
+            {noticeItems.map((item) => (
+              <article key={item.label}>
+                <span>{item.label}</span>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+                <a className="notice-link" href={facebookUrl} target="_blank" rel="noopener noreferrer" aria-describedby="external-link-note">{item.label === '最新公告' ? '查看官方公告' : '前往官方 Facebook'}</a>
               </article>
             ))}
           </div>
-          <aside className="story-note">
-            <p className="section-kicker">資料邊界</p>
-            <h3>不把未查證傳聞寫成廟史</h3>
+        </section>
+
+        <section className="section story-section" id="story" tabIndex={-1} aria-labelledby="story-title">
+          <div className="section-heading">
+            <p className="section-kicker">廟宇故事</p>
+            <h2 id="story-title">老樟樹、土地公與廣厚宮的地方記憶</h2>
             <p>
-              已確認內容會標明來源；尚未有官方文字佐證的地址、開放時間、祭典細節或服務項目，保留由官方 Facebook 公告更新。
+              目前可公開查得的廣厚宮在地資料，主要來自 2018 年地方報導與司法院法人登記公告。下列內容採「公開資料整理」方式呈現，正式活動與服務仍以廟方公告為準。
             </p>
-          </aside>
-        </div>
-      </section>
+          </div>
+          <div className="story-layout">
+            <div className="story-timeline">
+              {storyItems.map((item) => (
+                <article key={`${item.year}-${item.title}`} className="timeline-item">
+                  <span>{item.year}</span>
+                  <div>
+                    <h3>{item.title}</h3>
+                    <p>{item.description}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+            <aside className="story-note">
+              <p className="section-kicker">故事來源</p>
+              <h3>從公開記載，認識地方記憶</h3>
+              <p>
+                本頁在地故事依 2018 年報導與法人登記公告整理，年份與數字保留原記載。您可在資料來源區閱讀全文；近期活動請查看官方公告。
+              </p>
+            </aside>
+          </div>
+        </section>
 
-      <section className="section deity-section" id="deities" aria-labelledby="deities-title">
-        <div className="section-heading centered">
-          <p className="section-kicker">主祀信仰</p>
-          <h2 id="deities-title">福德守土，玄壇納財</h2>
-          <p>廣厚宮名稱與公開資訊指向福德正神與玄壇財神信仰。神明背景採民間信仰通說整理，與廣厚宮專屬沿革分開呈現。</p>
-        </div>
-        <div className="deity-grid">
-          {deityItems.map((deity) => (
-            <article className="deity-card" key={deity.title}>
-              <div className="deity-card-header">
-                <div className="seal">{deity.seal}</div>
-                <div>
-                  <h3>{deity.title}</h3>
-                  <p>{deity.subtitle}</p>
+        <section className="section deity-section" id="deities" tabIndex={-1} aria-labelledby="deities-title">
+          <div className="section-heading centered">
+            <p className="section-kicker">主祀信仰</p>
+            <h2 id="deities-title">福德守土，玄壇納財</h2>
+            <p>廣厚宮名稱與公開資訊指向福德正神與玄壇財神信仰。神明背景採民間信仰通說整理，與廣厚宮專屬沿革分開呈現。</p>
+          </div>
+          <div className="deity-grid">
+            {deityItems.map((deity) => (
+              <article className="deity-card" key={deity.title}>
+                <div className="deity-card-header">
+                  <div className="seal">{deity.seal}</div>
+                  <div>
+                    <h3>{deity.title}</h3>
+                    <p>{deity.subtitle}</p>
+                  </div>
                 </div>
-              </div>
-              <p>{deity.description}</p>
-              <ul>
-                {deity.points.map((point) => (
-                  <li key={point}>{point}</li>
-                ))}
-              </ul>
-            </article>
-          ))}
-        </div>
-      </section>
+                <p>{deity.description}</p>
+                <ul>
+                  {deity.points.map((point) => (
+                    <li key={point}>{point}</li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+        </section>
 
-      <section className="section visit-section" id="visit" aria-labelledby="visit-title">
-        <div className="section-heading">
-          <p className="section-kicker">參拜資訊</p>
-          <h2 id="visit-title">信眾常見需求</h2>
-          <p>下列資訊以信仰方向與聯絡方式整理，具體活動、時程與服務細節請以官方 Facebook 最新公告為準。</p>
-        </div>
-        <div className="visit-grid">
-          {visitItems.map((item) => (
-            <article key={item.title}>
-              <h3>{item.title}</h3>
-              <p>{item.description}</p>
-            </article>
-          ))}
-        </div>
-      </section>
+        <section className="section visit-section" id="visit" tabIndex={-1} aria-labelledby="visit-title">
+          <div className="section-heading">
+            <p className="section-kicker">參拜資訊</p>
+            <h2 id="visit-title">信眾常見需求</h2>
+            <p>下列資訊以信仰方向與聯絡方式整理，具體活動、時程與服務細節請以官方 Facebook 最新公告為準。</p>
+          </div>
+          <div className="visit-grid">
+            {visitItems.map((item) => (
+              <article key={item.title}>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </article>
+            ))}
+          </div>
+        </section>
 
-      <section className="section faq-section" id="faq" aria-labelledby="faq-title">
-        <div className="section-heading">
-          <p className="section-kicker">常見問題</p>
-          <h2 id="faq-title">先回答信眾最容易疑惑的事</h2>
-          <p>FAQ 用於說明資料邊界、官方公告入口與抽獎輪盤定位，降低首頁資訊不足造成的誤解。</p>
-        </div>
-        <div className="faq-list">
-          {faqItems.map((item) => (
-            <article key={item.question}>
-              <h3>{item.question}</h3>
-              <p>{item.answer}</p>
-            </article>
-          ))}
-        </div>
-      </section>
+        <section className="section faq-section" id="faq" tabIndex={-1} aria-labelledby="faq-title">
+          <div className="section-heading">
+            <p className="section-kicker">常見問題</p>
+            <h2 id="faq-title">參拜與活動常見問題</h2>
+            <p>點選問題查看說明，也可透過官方 Facebook 聯絡廟方。</p>
+          </div>
+          <div className="faq-list">
+            {faqItems.map((item) => (
+              <details key={item.question}>
+                <summary>{item.question}</summary>
+                <p>{item.answer}</p>
+              </details>
+            ))}
+          </div>
+        </section>
 
-      <section className="section contact-section" id="contact" aria-labelledby="contact-title">
-        <div>
-          <p className="section-kicker">公告聯絡</p>
-          <h2 id="contact-title">最新消息以官方 Facebook 為準</h2>
-          <p>
-            宮廟活動、祈福服務、臨時公告與聯絡詢問，請以前往官方 Facebook 頁面取得最新資訊。若後續提供正式地址、電話或祭典日程，可再補入此區。
-          </p>
-        </div>
-        <a className="button primary" href={facebookUrl} target="_blank" rel="noreferrer">
-          前往 Facebook
-        </a>
-      </section>
-
-      <section className="section project-section" aria-labelledby="project-title">
-        <div className="section-heading">
-          <p className="section-kicker">數位活動工具</p>
-          <h2 id="project-title">抽獎輪盤 App</h2>
-          <p>抽獎輪盤是宮廟活動輔助工具，首頁主軸仍以廣厚宮介紹、主祀信仰、公告與聯絡資訊為主。</p>
-        </div>
-        <div className="project-panel">
+        <section className="section contact-section" id="contact" tabIndex={-1} aria-labelledby="contact-title">
           <div>
-            <h3>活動互動與開源專案</h3>
-            <p>輪盤工具保留於相關專案區，方便活動使用者與開源貢獻者查閱。</p>
+            <p className="section-kicker">公告聯絡</p>
+            <h2 id="contact-title">最新消息以官方 Facebook 為準</h2>
+            <p>
+              宮廟活動、祈福服務、臨時公告與聯絡詢問，請前往官方 Facebook 查看最新資訊，或向廟方詢問參拜安排。
+            </p>
           </div>
-          <div className="project-links" aria-label="抽獎輪盤相關連結">
-            <a href="https://github.com/GuangHouGong/fortune-draw-wheel" target="_blank" rel="noreferrer">
-              GitHub repo
-            </a>
-            <a href="https://guanghougong.github.io/fortune-draw-wheel/" target="_blank" rel="noreferrer">
-              線上 Demo
-            </a>
-          </div>
-        </div>
-      </section>
+          <a className="button primary" href={facebookUrl} target="_blank" rel="noopener noreferrer" aria-describedby="external-link-note">
+            前往 Facebook
+          </a>
+        </section>
 
-      <section className="section source-section" id="sources" aria-labelledby="source-title">
-        <div className="section-heading">
-          <p className="section-kicker">資料來源</p>
-          <h2 id="source-title">公開資料與信仰背景參考</h2>
-          <p>頁面內容以公開可查資料整理，並保留來源連結，方便後續校對與補充。</p>
-        </div>
-        <ul className="source-list">
-          {sourceLinks.map((source) => (
-            <li key={source.href}>
-              <span>{source.note}</span>
-              <a href={source.href} target="_blank" rel="noreferrer">
-                {source.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </section>
+        <section className="section project-section" id="tools" tabIndex={-1} aria-labelledby="project-title">
+          <div className="section-heading">
+            <p className="section-kicker">數位活動工具</p>
+            <h2 id="project-title">土城廣厚宮功德會抽獎</h2>
+            <p>免費的活動抽獎工具，手機、平板與電腦都能使用。名單與紀錄保存在使用的瀏覽器。</p>
+          </div>
+          <div className="project-panel">
+            <img className="draw-mascot" src="/assets/draw-mascot.webp" alt="功德會抽獎吉祥物迎賓公仔" width="400" height="400" loading="lazy" />
+            <div className="project-content">
+              <h3>從準備到開獎，一步一步完成</h3>
+              <ol className="draw-steps">
+                <li><strong>準備活動</strong><span>貼上姓名、快速連號，或匯入 Excel；設定獎項與組別後先試抽。</span></li>
+                <li><strong>現場開獎</strong><span>選擇轉盤、跳號或快速開獎；按開始、停止，再抽下一位。缺席可保留紀錄並補抽。</span></li>
+                <li><strong>帶走紀錄</strong><span>下載中獎結果與 JSON 備份。換裝置時匯入備份，繼續管理活動。</span></li>
+              </ol>
+              <div className="project-links" aria-label="功德會抽獎相關連結">
+                <a className="button primary" href={drawUrl}>開啟功德會抽獎</a>
+                <a href={`${drawUrl}#/help`}>閱讀抽獎使用說明</a>
+                <a href="https://github.com/GuangHouGong/fortune-draw-wheel" target="_blank" rel="noopener noreferrer" aria-describedby="external-link-note">查看開源程式</a>
+              </div>
+              <p className="data-note">不需帳號。活動資料不會自動同步；清除瀏覽器資料或換裝置前，請先下載備份。抽獎工具顯示「已準備離線使用」後，才能在斷網時重開。</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="section source-section" id="sources" tabIndex={-1} aria-labelledby="source-title">
+          <div className="section-heading">
+            <p className="section-kicker">資料來源</p>
+            <h2 id="source-title">公開資料與信仰背景參考</h2>
+            <p>史料數字保留報導當年的記載；主祀介紹為信仰背景參考。網站內容整理日期：2026 年 10 月 5 日。</p>
+          </div>
+          <ul className="source-list">
+            {sourceLinks.map((source) => (
+              <li key={source.href}>
+                <span>{source.note}</span>
+                <a href={source.href} target="_blank" rel="noopener noreferrer" aria-describedby="external-link-note">
+                  {source.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+      </main>
 
       <footer className="site-footer">
         <span>© 土城廣厚宮福德正神・玄壇財神</span>
-        <a href="/fortune-draw-wheel/">抽獎輪盤 App</a>
+        <div className="footer-links"><a href="#main-content">回到頁首</a><a href={drawUrl}>功德會抽獎</a></div>
       </footer>
-    </main>
+    </div>
   );
 }
 
